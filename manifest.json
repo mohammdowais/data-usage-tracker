@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "Data Usage Tracker",
+  "version": "1.0",
+  "description": "Track total downloaded and uploaded bytes per website.",
+  "permissions": [
+    "webRequest",
+    "storage",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "icon.png"
+  }
+}
