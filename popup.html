@@ -1,83 +1,88 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <style>
-    body {
-      width: 440px;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      padding: 8px;
-    }
-    h2 {
-      margin-top: 0;
-      text-align: center;
-      color: #1a73e8;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 14px;
-    }
-    th {
-      background: #f1f3f4;
-      padding: 8px 4px;
-      text-align: left;
-      position: sticky;
-      top: 0;
-    }
-    td {
-      padding: 6px 4px;
-      border-bottom: 1px solid #e8eaed;
-    }
-    .num {
-      text-align: right;
-      font-family: monospace;
-    }
-    .total-bar {
-      margin-top: 12px;
-      padding: 10px;
-      background: #e8f0fe;
-      border-radius: 6px;
-      font-weight: bold;
-      display: flex;
-      justify-content: space-between;
-    }
-    button {
-      margin-top: 10px;
-      width: 100%;
-      padding: 8px;
-      background: #d93025;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    button:hover {
-      background: #b3261e;
-    }
-    .empty {
-      text-align: center;
-      color: #5f6368;
-      padding: 20px 0;
-    }
-  </style>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-  <h2>Data Usage</h2>
-  <div id="stats">
+  <h2>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent-blue); vertical-align: middle;">
+      <line x1="22" y1="12" x2="2" y2="12"></line>
+      <path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"></path>
+      <line x1="6" y1="16" x2="6.01" y2="16"></line>
+      <line x1="10" y1="16" x2="10.01" y2="16"></line>
+    </svg>
+    Data Usage Tracker
+  </h2>
+
+  <!-- Summary Grid -->
+  <div class="summary-grid">
+    <div class="summary-card">
+      <span class="label">Download</span>
+      <div id="totalDown" class="val">0.00 MB</div>
+    </div>
+    <div class="summary-card">
+      <span class="label">Upload</span>
+      <div id="totalUp" class="val">0.00 MB</div>
+    </div>
+    <div class="summary-card total">
+      <span class="label">Total</span>
+      <div id="totalUsage" class="val">0.00 MB</div>
+    </div>
+  </div>
+
+  <!-- Time Filter Tabs -->
+  <div class="tabs-container">
+    <button class="tab-btn active" data-filter="all">All Time</button>
+    <button class="tab-btn" data-filter="10m">10m</button>
+    <button class="tab-btn" data-filter="30m">30m</button>
+    <button class="tab-btn" data-filter="1h">1 Hour</button>
+    <button class="tab-btn" data-filter="24h">24h</button>
+    <button class="tab-btn" data-filter="1w">1 Week</button>
+    <button class="tab-btn" data-filter="1m">1 Month</button>
+    <button class="tab-btn" data-filter="custom">Custom</button>
+  </div>
+
+  <!-- Custom Range Panel -->
+  <div id="customRangePanel" class="custom-range-panel">
+    <div class="custom-range-inputs">
+      <div class="input-group">
+        <label for="customStart">Start Time</label>
+        <input type="datetime-local" id="customStart">
+      </div>
+      <div class="input-group">
+        <label for="customEnd">End Time</label>
+        <input type="datetime-local" id="customEnd">
+      </div>
+    </div>
+    <button id="applyCustomBtn" class="apply-btn">Apply Custom Filter</button>
+  </div>
+
+  <!-- Stats Table Container -->
+  <div class="table-container">
     <table>
       <thead>
         <tr>
           <th>Domain</th>
-          <th class="num">Download</th>
-          <th class="num">Upload</th>
+          <th class="num">Down</th>
+          <th class="num">Up</th>
           <th class="num">Total</th>
         </tr>
       </thead>
-      <tbody id="usageBody"></tbody>
+      <tbody id="usageBody">
+        <tr>
+          <td colspan="4" class="empty">Loading usage data...</td>
+        </tr>
+      </tbody>
     </table>
-    <div id="total" class="total-bar"></div>
   </div>
-  <button id="resetBtn">Reset All Data</button>
+
+  <!-- Footer Actions -->
+  <div class="footer" style="display: flex; gap: 8px; justify-content: space-between; width: 100%;">
+    <button id="mockBtn" class="reset-btn" style="color: var(--accent-blue); border-color: rgba(0, 242, 254, 0.2);">Load Demo Data</button>
+    <button id="resetBtn" class="reset-btn">Reset Data</button>
+  </div>
+
   <script src="popup.js"></script>
 </body>
 </html>
