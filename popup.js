@@ -1,9 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
   initFilters();
   loadStats();
-  document.getElementById('resetBtn').addEventListener('click', resetData);
-  document.getElementById('mockBtn').addEventListener('click', loadMockData);
-  document.getElementById('applyCustomBtn').addEventListener('click', loadStats);
+  const resetBtn = document.getElementById('resetBtn');
+  if (resetBtn) resetBtn.addEventListener('click', resetData);
+  const mockBtn = document.getElementById('mockBtn');
+  if (mockBtn) mockBtn.addEventListener('click', loadMockData);
+  const applyCustomBtn = document.getElementById('applyCustomBtn');
+  if (applyCustomBtn) applyCustomBtn.addEventListener('click', loadStats);
 });
 
 let currentFilter = 'all';
